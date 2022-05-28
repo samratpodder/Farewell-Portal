@@ -1,0 +1,30 @@
+{
+  "name": "farewell-portal",
+  "version": "1.0.0",
+  "description": "This is a portal arrangement to view, manage, track and get organized with all the different events and activities relating to Aloha 2022 - The Farewell Party of CSE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samratpodder/Farewell-Portal.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "Express",
+    "Portal"
+  ],
+  "author": "Samrat Podder",
+  "license": "LGPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/samratpodder/Farewell-Portal/issues"
+  },
+  "homepage": "https://github.com/samratpodder/Farewell-Portal#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.4",
+    "nodemon": "^2.0.16"
+  }
+}

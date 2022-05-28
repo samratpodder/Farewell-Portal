@@ -1,0 +1,64 @@
+const express = require('express');
+const app = express();
+const mongoose = require("mongoose");
+const ejs = require('ejs');
+const { MongoClient, ServerApiVersion } = require('mongodb');
+
+app.set('view engine', 'ejs');
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + '\\public'));
+app.set('views', __dirname + '\\views');
+
+const uri = "mongodb+srv://samratpodder:ycTbpiZk2ZbCMHsM@samrat-cluster.vtfclzm.mongodb.net/?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+// async function run() {
+//     try {
+//       await client.connect();
+//       await client.db(dbN).command({ ping: 1 });
+//       console.log("Connected successfully to server");
+//     } catch {
+//       await client.close();
+//       console.log("Connection closed");
+//     }
+// }
+async function run(){
+    await mongoose.connect(
+        uri,
+        {
+          useNewUrlParser: true,
+        //   useFindAndModify: false,
+          useUnifiedTopology: true
+        }
+      );
+    const db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function() {
+        console.log("Connected successfully to server");
+    });
+}
+run().then(() => {
+    console.log("Connected successfully to server");
+}).catch((err) => {
+    console.log(err.stack);
+});
+
+
+
+app.get('/allattendee',(req,res)=>{
+    res.render('allattendee',{title:"All Attendee"});
+});
+app.get('/enlist',(req,res)=>{
+    res.render('enlist',{title:"Self Enlist Form"});
+});
+app.post('/addnewperson',(req,res)=>{
+    const {fullName,email,roll,year} = req.body;
+    console.log(req.body);
+    res.redirect('/allattendee');
+});
+app.get('/', (req, res) => {
+    res.render('home',{title:"Farewell Portal"});
+});
+
+
+app.listen(3000, () => console.log('Portal app listening on port 3000!'));
