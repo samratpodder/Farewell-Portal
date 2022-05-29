@@ -31,7 +31,7 @@ async function run(){
           useUnifiedTopology: true
         }
       );
-    const db = mongoose.connection;
+    const db = await mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function() {
         console.log("Connected successfully to server");
@@ -42,20 +42,72 @@ run().then(() => {
 }).catch((err) => {
     console.log(err.stack);
 });
+const AttendeeSchema = new mongoose.Schema({
+    name:{
+        type: String,
+        required: true
+    },
+    email:{
+        type: String,
+        required: false
+    },
+    roll:{
+        type: Number,
+        required: true,
+        min: [14000000000, 'Roll number should be 10 digits'],
+        max: [15000000000, 'Roll number should be 10 digits']
+    },
+    year:{
+        type: Number,
+        required: true,
+        min: [1, 'Invalid Year'],
+        max: [4, 'Invalid Year']
+    }
+});
+const Attendee = mongoose.model('Attendee', AttendeeSchema);
 
 
 
 app.get('/allattendee',(req,res)=>{
-    res.render('allattendee',{title:"All Attendee"});
+    Attendee.find({},(err,data)=>{
+        if(err)
+            res.render('errorDB');
+        else
+            res.render('allattendee',{title:"All Attendee",data});
+    });
 });
 app.get('/enlist',(req,res)=>{
     res.render('enlist',{title:"Self Enlist Form"});
 });
+
+app.get('/getMyProfile/:id',(req,res)=>{
+    const id = req.params.id;
+    Attendee.findById(id,(err,data)=>{
+        if(err)
+            res.render('errorDB');
+        else
+            console.log(data);
+            res.render('myprofile',{title:"My Profile",data});
+    });
+});
+
 app.post('/addnewperson',(req,res)=>{
     const {fullName,email,roll,year} = req.body;
     console.log(req.body);
-    res.redirect('/allattendee');
+
+    const newAttendee = new Attendee({
+        name: fullName,
+        email: email,
+        roll: roll,
+        year: year
+    });
+    newAttendee.save().then(()=>{
+        res.redirect('/allattendee');
+    }).catch((err)=>{
+        console.log(err);
+    });
 });
+
 app.get('/', (req, res) => {
     res.render('home',{title:"Farewell Portal"});
 });

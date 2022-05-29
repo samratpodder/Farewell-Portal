@@ -9,6 +9,13 @@
 </head>
 <body class="">
     <h1>The Farewell Party Project</h1>
-    
+    <h3>All Attendees</h3>
+    <!-- Generate a List of attendees -->
+    <ul>
+        <% for (var i = 0; i < data.length; i++) { %>
+            <li><a href=<%= "/getMyProfile/"+data[i]._id %>><%= data[i].name %></a></li>
+        <% } %>
+    </ul>
+
 </body>
 </html>
