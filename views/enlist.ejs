@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body class="">
-    <h1>The Farewell Party Project</h1>
+    <h1>Farewell Management System</h1>
     <form action="/addnewperson" method="post">
         <div class="form-floating my-3 mx-4">
-            <input name="fullName" type="text" class="form-control" id="floatingInput" placeholder="Horipodo Bandwala">
+            <input required name="fullName" type="text" class="form-control" id="floatingInput" placeholder="Horipodo Bandwala">
             <label for="floatingInput">Full Name</label>
         </div>
         <div class="form-floating my-3 mx-4">
@@ -19,12 +19,12 @@
             <label for="floatingInput">Email address</label>
         </div>
         <div class="form-floating my-3 mx-4">
-            <input name="roll" type="number" class="form-control" id="floatingInput" placeholder="14200118041">
+            <input required name="roll" type="number" class="form-control" id="floatingInput" placeholder="14200118041">
             <label for="floatingInput">MAKAUT Roll Number</label>
         </div>
         <div class="yeardiv" style="padding: 1rem 3rem;">
             <label for="year">Year</label>
-            <select name="year" class="form-select" aria-label="Default select example">
+            <select required name="year" class="form-select" aria-label="Default select example">
                 
                 <option value="1">One</option>
                 <option value="2" selected>Two</option>

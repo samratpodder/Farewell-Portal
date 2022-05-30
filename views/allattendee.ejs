@@ -13,7 +13,14 @@
     <!-- Generate a List of attendees -->
     <ul>
         <% for (var i = 0; i < data.length; i++) { %>
-            <li><a href=<%= "/getMyProfile/"+data[i]._id %>><%= data[i].name %></a></li>
+            <% if (data[i].attending && data[i].payment.status) { %>
+                <li><a href=<%= "/getMyProfile/"+data[i]._id %>><%= data[i].name %></a>(Attending)</li>
+            <% } %>
+        <% } %>
+        <% for (var i = 0; i < data.length; i++) { %>
+            <% if (!data[i].attending || data[i].payment.amount>0) { %>
+                <li><a href=<%= "/getMyProfile/"+data[i]._id %>><%= data[i].name %></a></li>
+            <% } %>
         <% } %>
     </ul>
 

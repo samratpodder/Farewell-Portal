@@ -9,9 +9,7 @@
 </head>
 <body>
     <h1>Farewell Management System</h1>
-    <br>
     <h4>Below is your Profile for Aloha 2022</h4>
-    <br>
     <div class="profile">
         Name :<%= data.name %> 
         <br>
@@ -20,6 +18,16 @@
         Year :<%= data.year %>
         <br>
         Makaut Roll Number: <%= data.roll %>
+        <br>
+        <% if(data.payment.amount>0 && data.payment.status == undefined) { %>
+            Payment Status: Waiting for Verification
+        <% } else if (data.payment.amount== undefined) { %>
+            Payment Status : Not Paid
+        <% } else {%> 
+            Payment Status: Paid <%= data.payment.amount %>
+        <% } %>
+        <br>
+        <button class="btn btn-dark"><a style="text-decoration: none;" href=<%= "/selfupdatepayment/"+data._id %> >Update Payment Status</a></button>
     </div>
 </body>
 </html>

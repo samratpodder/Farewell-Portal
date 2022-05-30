@@ -62,6 +62,24 @@ const AttendeeSchema = new mongoose.Schema({
         required: true,
         min: [1, 'Invalid Year'],
         max: [4, 'Invalid Year']
+    },
+    attending:{
+        type: Boolean,
+        required: false
+    },
+    payment:{
+        amount:{
+            type: Number,
+            required: false
+        },
+        method:{
+            type: String,
+            required: false
+        },
+        status:{
+            type: Boolean,
+            required: false
+        }
     }
 });
 const Attendee = mongoose.model('Attendee', AttendeeSchema);
@@ -70,6 +88,7 @@ const Attendee = mongoose.model('Attendee', AttendeeSchema);
 
 app.get('/allattendee',(req,res)=>{
     Attendee.find({},(err,data)=>{
+        
         if(err)
             res.render('errorDB');
         else
@@ -91,6 +110,16 @@ app.get('/getMyProfile/:id',(req,res)=>{
     });
 });
 
+app.get('/selfupdatepayment/:id',(req,res)=>{
+    const id = req.params.id;
+    Attendee.findById(id,(err,data)=>{
+        if(err)
+            res.render('errorDB');
+        else
+            res.render('selfupdatepayment',{title:"Update Payment",data});
+    });
+});
+
 app.post('/addnewperson',(req,res)=>{
     const {fullName,email,roll,year} = req.body;
     console.log(req.body);
@@ -105,6 +134,27 @@ app.post('/addnewperson',(req,res)=>{
         res.redirect('/allattendee');
     }).catch((err)=>{
         console.log(err);
+    });
+});
+
+
+app.post('/updatepayment/:id',(req,res)=>{
+    const id = req.params.id;
+    const {attending,amount,method} = req.body;
+    console.log(id,req.body);
+    Attendee.findById(id,(err,data)=>{
+        if(err)
+            res.render('errorDB');
+        else{
+            data.attending  = attending;
+            data.payment.amount = amount;
+            data.payment.method = method;
+            data.save().then(()=>{
+                res.redirect('/allattendee');
+            }).catch((err)=>{
+                console.log(err);
+            });
+        }
     });
 });
 

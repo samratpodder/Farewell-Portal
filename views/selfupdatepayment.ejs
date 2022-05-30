@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> </title>
+</head>
+<body>
+    <h1>Farewell Management System</h1>
+    <form action=<%= "/updatepayment/"+data._id %> method="post">
+        <div class="attending" style="padding: 1rem 3rem;">
+            <label for="attending">You Attending Bro?</label>
+            <select id="attend" name="attending" class="form-select" aria-label="Default select example">
+                <option value='yes' selected>Yes</option>
+                <option value='no' >No</option>
+            </select>
+        </div>
+        <div class="form-floating my-3 mx-5">
+            <label for="floatingInput">Amount Paid</label>
+            <input readonly="readonly" name="amount" type="number" class="form-control" id="amountpaid" value="200">
+        </div>
+        <div class="method" style="padding: 1rem 3rem;">
+            <label for="method">How you paid Bro?</label>
+            <select id="method" name="method" class="form-select" aria-label="Default select example">
+                <option value='ONLINE' selected>ONLINE</option>
+                <option value='OFFLINE'>OFFLINE</option>
+            </select>
+        </div>
+        <button style="cursor: pointer;" class="btn btn-dark">Update</button> 
+    </form>
+    <script>
+        document.getElementById('attend').onchange = function() {
+            if (this.value == 'yes') {
+                document.getElementById('amountpaid').value = 200;
+            } else {
+                document.getElementById('amountpaid').value = 100;
+            }
+        }
+        // if(document.getElementById('attend').value==='yes')
+        //     document.getElementById('amountpaid').value=200;
+        // if(document.getElementById('attend').value==='no')
+        //     document.getElementById('amountpaid').value=100;
+    </script>
+</body>
+</html>
