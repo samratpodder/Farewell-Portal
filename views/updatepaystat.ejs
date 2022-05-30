@@ -9,17 +9,12 @@
 </head>
 <body class="">
     <h1>The Farewell Party Project</h1>
-    <h3>All Attendees</h3>
+    <h3>Payment Verification Pending for the below Profiles</h3>
     <!-- Generate a List of attendees -->
     <ul>
         <% for (var i = 0; i < data.length; i++) { %>
-            <% if (data[i].payment.status) { %>
-                <li><a href=<%= "/getMyProfile/"+data[i]._id %>><%= data[i].name %></a>(Paid)</li>
-            <% } %>
-        <% } %>
-        <% for (var i = 0; i < data.length; i++) { %>
             <% if (!data[i].payment.status) { %>
-                <li><a href=<%= "/getMyProfile/"+data[i]._id %>><%= data[i].name %></a>(Payment Incomplete)</li>
+                <li><a href=<%= "/getpaymentdetails/"+data[i]._id %>><%= data[i].name %></a></li>
             <% } %>
         <% } %>
     </ul>

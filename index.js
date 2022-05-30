@@ -120,6 +120,26 @@ app.get('/selfupdatepayment/:id',(req,res)=>{
     });
 });
 
+app.get('/updatepaystatus',(req,res)=>{
+    Attendee.find({},(err,data)=>{
+        if(err)
+            res.render('errorDB');
+        else
+            console.log(data);
+            res.render('updatepaystat',{title:"Update Payment Status",data});
+    });
+});
+
+app.get('/getpaymentdetails/:id',(req,res)=>{
+    const id = req.params.id;
+    Attendee.findById(id,(err,data)=>{
+        if(err)
+            res.render('errorDB');
+        else
+            res.render('getpaymentdetails',{title:"Payment Status",data});
+    });
+});
+
 app.post('/addnewperson',(req,res)=>{
     const {fullName,email,roll,year} = req.body;
     console.log(req.body);
@@ -149,6 +169,7 @@ app.post('/updatepayment/:id',(req,res)=>{
             data.attending  = attending;
             data.payment.amount = amount;
             data.payment.method = method;
+            data.payment.status = false;
             data.save().then(()=>{
                 res.redirect('/allattendee');
             }).catch((err)=>{
@@ -156,6 +177,27 @@ app.post('/updatepayment/:id',(req,res)=>{
             });
         }
     });
+});
+
+app.post('/adminverifypayment/:id', (req, res) => {
+    const id = req.params.id;
+    const { status, secretcode } = req.body;
+    if (secretcode==='sad') {
+        Attendee.findById(id, (err, data) => {
+            if (err)
+                res.render('errorDB');
+            else {
+                data.payment.status = true;
+                data.save().then(() => {
+                    res.send('Payment Verified');
+                }).catch((err) => {
+                    console.log(err);
+                });
+            }
+        });
+    }
+    else
+        res.send("[ADMIN ACCESS REQUIRED] Ohh!! You thought you smarter than me ?");
 });
 
 app.get('/', (req, res) => {
