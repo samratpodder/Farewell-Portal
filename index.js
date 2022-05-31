@@ -256,4 +256,6 @@ app.get('/', (req, res) => {
 });
 
 
+
+const port = process.env.PORT || 3000;
 app.listen(3000, () => console.log('Portal app listening on port 3000!'));
