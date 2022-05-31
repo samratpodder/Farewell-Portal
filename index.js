@@ -3,12 +3,12 @@ const app = express();
 const mongoose = require("mongoose");
 const ejs = require('ejs');
 const { MongoClient, ServerApiVersion } = require('mongodb');
-
+const path = require('path');
 app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '\\public'));
-app.set('views', __dirname + '\\views');
+app.use(express.static(path.join(__dirname , 'public')));
+app.set('views',path.join(__dirname , 'views') );
 
 const uri = "mongodb+srv://samratpodder:ycTbpiZk2ZbCMHsM@samrat-cluster.vtfclzm.mongodb.net/?retryWrites=true&w=majority";
 // const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
