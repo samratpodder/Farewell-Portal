@@ -5,12 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%=title%></title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body class="">
     <h1>The Farewell Party Project</h1>
-    <button type="button" class="btn btn-dark"><a style="text-decoration: none;color:antiquewhite" href="/allattendee">View Attendees</a></button>
-    <button type="button" class="btn btn-dark"><a style="text-decoration: none;color:antiquewhite" href="/enlist">Enlist Yourself</a></button>
-    <button type="button" class="btn btn-dark"><a style="text-decoration: none;color:antiquewhite" href="/updatepaystatus">Payment Approval Admin</a></button>
+    <button type="button" class="btn btn-success"><a style="text-decoration: none;color:antiquewhite" href="/allattendee">View All User</a></button>
+    <button type="button" class="btn btn-success"><a style="text-decoration: none;color:antiquewhite" href="/enlist">Enlist Yourself</a></button>
+    <button type="button" class="btn btn-danger"><a style="text-decoration: none;color:antiquewhite" href="/updatepaystatus">Payment Approval Admin</a></button>
+    <button disabled class="btn btn-danger"><a style="text-decoration: none;color:antiquewhite" href="/allattending">Attendance Marker</a></button>
+    <br>
+    <br>
+    <div class="text">
+        <p style="padding: 0rem;">Fund Raised till now --> <%= dispAmount-(5*dispAmount/100) %> </p>
+    </div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow=<%= ""+dispPercent+"%" %>  aria-valuemin="0" aria-valuemax="100" style=<%= "width: "+dispPercent+"%" %>  ><%= dispPercent %> </div>
+    </div>
+    <script>
+        
+    </script>
 </body>
 </html>

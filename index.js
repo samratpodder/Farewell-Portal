@@ -67,6 +67,10 @@ const AttendeeSchema = new mongoose.Schema({
         type: Boolean,
         required: false
     },
+    presentonDday:{
+        type: Boolean,
+        required: false
+    },
     payment:{
         amount:{
             type: Number,
@@ -140,6 +144,32 @@ app.get('/getpaymentdetails/:id',(req,res)=>{
     });
 });
 
+app.get('/allattending',(req,res)=>{
+    Attendee.find({attending:true},(err,data)=>{
+        if(err)
+            res.render('errorDB');
+        else
+            res.render('attending',{title:"All Attending",attendees:data});
+    });
+});
+
+app.get('/markpresent/:id',(req,res)=>{
+    const id = req.params.id;
+    Attendee.findById(id,(err,data)=>{
+        if(err)
+            res.render('errorDB');
+        else{
+            data.presentonDday = true;
+            data.save((err)=>{
+                if(err)
+                    res.render('errorDB');
+                else
+                    res.redirect('/allattending');
+            });
+        }
+    });
+});
+
 app.post('/addnewperson',(req,res)=>{
     const {fullName,email,roll,year} = req.body;
     console.log(req.body);
@@ -148,7 +178,9 @@ app.post('/addnewperson',(req,res)=>{
         name: fullName,
         email: email,
         roll: roll,
-        year: year
+        year: year,
+        attending: false,
+        presentonDday: false
     });
     newAttendee.save().then(()=>{
         res.redirect('/allattendee');
@@ -201,7 +233,26 @@ app.post('/adminverifypayment/:id', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.render('home',{title:"Farewell Portal"});
+    var dispAmount = 0;
+    Attendee.find({}, (err, data) => {
+        if (err)
+            res.render('errorDB');
+        else
+        {
+            // console.log(data);
+            for(let i=0;i<data.length;i++){
+                
+                if(data[i].payment.status)
+                {
+                    
+                    dispAmount+= data[i].payment.amount;
+                    console.log(dispAmount);
+                }
+                    
+            }
+            res.render('home',{title:"Farewell Portal",dispAmount,dispPercent:(dispAmount/40000)*100});
+        }
+    });
 });
 
 
