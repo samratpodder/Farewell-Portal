@@ -140,7 +140,7 @@ app.get('/getpaymentdetails/:id',(req,res)=>{
         if(err)
             res.render('errorDB');
         else
-            res.render('getpaymentdetails',{title:"Payment Status",data});
+            res.render('mypaydetails',{title:"Payment Status",data});
     });
 });
 
