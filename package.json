@@ -4,7 +4,9 @@
   "description": "This is a portal arrangement to view, manage, track and get organized with all the different events and activities relating to Aloha 2022 - The Farewell Party of CSE",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "heroku-postbuild": "npm run start"
   },
   "repository": {
     "type": "git",
