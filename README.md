@@ -3,6 +3,6 @@ This is a portal arrangement to view, manage, track and get organized with all t
 
 Live Version ---> https://aloha-management-system.herokuapp.com/
 
-The Application lacks a fair amount of UI Styling and currently looks a bit cluttered. It is because I am very lazy when it comes to writing css. 
+The Application lacks a fair amount of UI Styling and currently looks a bit cluttered. It is because I am very lazy when it comes to writing css.
 
 Contributions are welcomed!!
